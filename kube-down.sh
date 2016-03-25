@@ -1,19 +1,20 @@
 #!/bin/bash
-echo "Stopping replication controllers, services and pods..."
-kubectl stop replicationcontrollers,services,pods --all
-if [ $? != 0 ]; then
-    echo "Kubernetes already down?"
-fi
 
-if [ ! -z "$(docker-compose ps -q)" ]; then
-    docker-compose stop
-    docker-compose rm -f -v
-fi
+echo "Starting to teardown Kubernetes..."
 
-k8s_containers=`docker ps -a -f "name=k8s_" -q`
+echo "- Removing replication controllers, pods, services, endpoints and namespaces..."
+kubectl delete --grace-period=1 rc,po,svc,ep,ns --all &>/dev/null
 
-if [ ! -z "$k8s_containers" ]; then
-    echo "Stopping and removing all other containers that were started by Kubernetes..."
-    docker stop $k8s_containers
-    docker rm -f -v $k8s_containers
-fi
+echo "- Removing main Kubernetes containers..."
+docker-compose stop -t 1 &>/dev/null
+docker-compose rm -fv &>/dev/null
+
+K8S_CONTAINERS=$(docker ps -a -f "name=k8s_" -q)
+echo "- Removing all other containers that were started by Kubernetes..."
+docker stop -t 1 ${K8S_CONTAINERS} &>/dev/null
+docker rm -fv ${K8S_CONTAINERS} &>/dev/null
+
+echo "- Removing manifests and other data..."
+sudo rm -rf /etc/kubernetes/manifests /var/lib/kubelet
+
+echo "Done: Kubernetes is down."
