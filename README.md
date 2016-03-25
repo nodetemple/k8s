@@ -1,2 +1,2 @@
 # k8s
-Kubernetes stack
+Kubernetes stack for CoreOS
