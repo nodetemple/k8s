@@ -1,7 +1,7 @@
 #!/bin/bash
 
 required_command_exists() {
-    command -v "$1" >/dev/null 2>&1 || { echo "$1 is required but is not installed. Aborting." >&2; exit 1; }
+    command -v "$1" &>/dev/null || { echo "$1 is required but is not installed. Aborting."; exit 1; }
 }
 
 required_command_exists docker
