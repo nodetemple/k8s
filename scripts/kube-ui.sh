@@ -3,8 +3,8 @@
 echo "Activating Kube UI..."
 
 kubectl --namespace=kube-system create -f - << EOF
-apiVersion: v1
 kind: ReplicationController
+apiVersion: v1
 metadata:
   name: kube-ui-v4
   namespace: kube-system
@@ -42,8 +42,8 @@ spec:
 EOF
 
 kubectl --namespace=kube-system create -f - << EOF
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: kube-ui
   namespace: kube-system

@@ -8,6 +8,6 @@ docker kill ${K8S_CONTAINERS} &>/dev/null
 docker rm -fv ${K8S_CONTAINERS} &>/dev/null
 
 echo "- Removing manifests and other data..."
-sudo rm -rf /etc/kubernetes/manifests /var/lib/kubelet
+sudo rm -rf /var/lib/kubelet
 
 echo "Kubernetes is down."
