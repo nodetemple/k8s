@@ -43,9 +43,14 @@ fi
 echo "- Starting up main Kubenetes containers..."
 docker-compose up -d
 
-cd scripts
+echo "- Waiting for Kubernetes stack to become available..."
+until kubectl cluster-info &>/dev/null; do
+  sleep 1
+done
 
-./kube-wait.sh
+cd scripts
 ./kube-namespace.sh
 ./dns.sh
 ./kube-ui.sh
+
+echo "Kubernetes stack is up."
