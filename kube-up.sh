@@ -9,7 +9,8 @@ echo "- Enabling Docker engine..."
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
 
-if ! [ "$(docker info &>/dev/null)" ]; then
+docker info &>/dev/null
+if [ $? -ne 0 ]; then
   echo "Docker engine is not running. Aborting."
   exit 1
 fi
