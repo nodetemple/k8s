@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  hostNetwork: false
+  restartPolicy: Always
+  containers:
+  - name: busybox
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    command:
+    - sleep
+    - "3600"

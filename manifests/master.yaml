@@ -2,11 +2,14 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: k8s-master
+  namespace: default
 spec:
   hostNetwork: true
+  restartPolicy: Always
   containers:
   - name: apiserver
     image: gcr.io/google_containers/hyperkube:v1.2.0
+    imagePullPolicy: IfNotPresent
     command:
     - "/hyperkube"
     - apiserver
@@ -18,6 +21,7 @@ spec:
     - "--v=2"
   - name: controller-manager
     image: gcr.io/google_containers/hyperkube:v1.2.0
+    imagePullPolicy: IfNotPresent
     command:
     - "/hyperkube"
     - controller-manager
@@ -25,6 +29,7 @@ spec:
     - "--v=2"
   - name: scheduler
     image: gcr.io/google_containers/hyperkube:v1.2.0
+    imagePullPolicy: IfNotPresent
     command:
     - "/hyperkube"
     - scheduler

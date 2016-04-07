@@ -10,7 +10,7 @@ metadata:
   labels:
     k8s-app: kube-ui
     version: v4
-    kubernetes.io/cluster-service: "true"
+    kubernetes.io/cluster-service: true
 spec:
   replicas: 1
   selector:
@@ -21,11 +21,14 @@ spec:
       labels:
         k8s-app: kube-ui
         version: v4
-        kubernetes.io/cluster-service: "true"
+        kubernetes.io/cluster-service: true
     spec:
+      hostNetwork: false
+      restartPolicy: Always
       containers:
       - name: kube-ui
         image: gcr.io/google_containers/kube-ui:v4
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             cpu: 100m
@@ -48,8 +51,8 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: kube-ui
-    kubernetes.io/cluster-service: "true"
-    kubernetes.io/name: "KubeUI"
+    kubernetes.io/cluster-service: true
+    kubernetes.io/name: KubeUI
 spec:
   selector:
     k8s-app: kube-ui
