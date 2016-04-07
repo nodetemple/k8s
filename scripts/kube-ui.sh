@@ -9,18 +9,15 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: kube-ui
-    version: v4
     kubernetes.io/cluster-service: "true"
 spec:
   replicas: 1
   selector:
     k8s-app: kube-ui
-    version: v4
   template:
     metadata:
       labels:
         k8s-app: kube-ui
-        version: v4
         kubernetes.io/cluster-service: "true"
     spec:
       hostNetwork: false
@@ -48,7 +45,7 @@ metadata:
   labels:
     k8s-app: kube-ui
     kubernetes.io/cluster-service: "true"
-    kubernetes.io/name: KubeUI
+    kubernetes.io/name: "Kube UI"
 spec:
   selector:
     k8s-app: kube-ui

@@ -25,6 +25,9 @@ apiVersion: v1
 metadata:
   name: kube-dns
   namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "Kube DNS"
 spec:
   clusterIP: 10.0.0.10
   ports:
