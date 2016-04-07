@@ -1,6 +1,5 @@
 #!/bin/bash
-
-echo "Activating Kube UI..."
+echo "- Setting up Kube UI..."
 
 kubectl --namespace=kube-system create -f - << EOF
 kind: ReplicationController

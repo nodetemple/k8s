@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "- Setting up namespace..."
 
 kubectl create -f - << EOF
 kind: Namespace
@@ -8,4 +9,3 @@ metadata:
   labels:
     name: kube-system
 EOF
-
