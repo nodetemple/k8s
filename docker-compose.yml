@@ -1,10 +1,10 @@
 etcd:
-  container_name: etcd
+  container_name: k8s_etcd
   image: quay.io/coreos/etcd:v2.3.0
   net: host
   command: ['--listen-peer-urls=http://127.0.0.1:2380', '--listen-client-urls=http://127.0.0.1:2379', '--advertise-client-urls=http://127.0.0.1:2379', '--data-dir=/var/etcd/data']
 kubelet:
-  container_name: kubelet
+  container_name: k8s_kubelet
   image: gcr.io/google_containers/hyperkube:v1.2.0
   net: host
   pid: host
@@ -20,19 +20,19 @@ kubelet:
     - ./manifests:/etc/kubernetes/manifests:ro
   command: /hyperkube kubelet --containerized --api-servers=http://127.0.0.1:8080 --v=2 --address=0.0.0.0 --enable-server --hostname-override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster-dns=10.0.0.10 --cluster-domain=cluster.local
 proxy:
-  container_name: proxy
+  container_name: k8s_proxy
   image: gcr.io/google_containers/hyperkube:v1.2.0
   net: host
   pid: host
   privileged: true
   command: /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
 kube2sky:
-  container_name: kube2sky
+  container_name: k8s_kube2sky
   image: gcr.io/google_containers/kube2sky:1.14
   net: host
   command: ['--kube-master-url=http://127.0.0.1:8080', '--etcd-server=http://127.0.0.1:2379', '--domain=cluster.local']
 skydns:
-  container_name: skydns
+  container_name: k8s_skydns
   image: skynetservices/skydns:2.5.3a
   net: host
   command: ['--machines=http://127.0.0.1:2379', '--addr=0.0.0.0:53', '--domain=cluster.local.', '--ns-rotate=false', '--nameservers=8.8.8.8:53,8.8.4.4:53']
