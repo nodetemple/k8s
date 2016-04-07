@@ -49,7 +49,7 @@ done
 
 cd scripts
 ./kube-namespace.sh
-./dns.sh
+./kube-dns.sh
 ./kube-ui.sh
 
 echo "Kubernetes stack is up."
