@@ -27,7 +27,7 @@ metadata:
   namespace: kube-system
   labels:
     kubernetes.io/cluster-service: "true"
-    kubernetes.io/name: "Kube DNS"
+    kubernetes.io/name: Kube-DNS
 spec:
   clusterIP: 10.0.0.10
   ports:
