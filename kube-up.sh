@@ -1,11 +1,10 @@
 #!/bin/bash
-
 COMPOSE_VERSION=1.6.2
 K8S_VERSION=1.2.0
 
 echo "Initializing Kubernetes v${K8S_VERSION} stack..."
 
-if ! command -v docker-compose; then
+if ! [ "$(command -v docker-compose)" ]; then
   echo "- Installing docker-compose..."
   curl -Ls https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-Linux-x86_64 > docker-compose
   chmod +x docker-compose
@@ -13,7 +12,7 @@ if ! command -v docker-compose; then
   sudo mv -f docker-compose /opt/bin/docker-compose
 fi
 
-if ! command -v kubectl; then
+if ! [ "$(command -v kubectl)" ]; then
   echo "- Installing kubectl..."
   curl -Ls http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl > kubectl
   chmod +x kubectl
@@ -40,7 +39,7 @@ if kubectl cluster-info &>/dev/null; then
   exit 1
 fi
 
-echo "- Starting up main Kubenetes containers..."
+echo "- Starting main Kubenetes containers..."
 docker-compose up -d
 
 echo "- Waiting for Kubernetes stack to become available..."
