@@ -4,7 +4,7 @@ echo "- Setting up Kube DNS..."
 DNS_HOST=$(echo $DOCKER_HOST | awk -F'[/:]' '{print $4}')
 : ${DNS_HOST:=$(ifconfig docker0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')}
 
-kubectl --namespace=kube-system create -f - << EOF
+kubectl create -f - << EOF
 kind: Endpoints
 apiVersion: v1
 metadata:
@@ -19,7 +19,7 @@ subsets:
     name: dns
 EOF
 
-kubectl --namespace=kube-system create -f - << EOF
+kubectl create -f - << EOF
 kind: Service
 apiVersion: v1
 metadata:
