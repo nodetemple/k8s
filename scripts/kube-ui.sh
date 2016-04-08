@@ -44,11 +44,12 @@ items:
   metadata:
     labels:
       app: kubernetes-dashboard-canary
+      kubernetes.io/name: Kube-UI
       kubernetes.io/cluster-service: "true"
     name: dashboard-canary
     namespace: kube-system
   spec:
-    type: NodePort
+    #type: NodePort
     ports:
     - port: 80
       targetPort: 9090

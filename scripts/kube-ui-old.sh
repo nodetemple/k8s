@@ -44,8 +44,8 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: kube-ui
-    kubernetes.io/cluster-service: "true"
     kubernetes.io/name: Kube-UI
+    kubernetes.io/cluster-service: "true"
 spec:
   selector:
     k8s-app: kube-ui
