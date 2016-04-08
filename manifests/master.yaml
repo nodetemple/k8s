@@ -59,3 +59,11 @@ spec:
     - "--domain=cluster.local."
     - "--ns-rotate=false"
     - "--nameservers=8.8.8.8:53,8.8.4.4:53"
+  - name: dashboard
+    image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 9090
+      protocol: TCP
+    args:
+    - "--apiserver-host=http://127.0.0.1:8080"
