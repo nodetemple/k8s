@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: k8s-master
+  name: k8s
   namespace: default
 spec:
   hostNetwork: true
@@ -21,12 +21,12 @@ spec:
     command:
     - "/hyperkube"
     - apiserver
-    - "--service-cluster-ip-range=10.0.0.1/24"
-    - "--bind-address=0.0.0.0"
     - "--insecure-bind-address=0.0.0.0"
+    - "--insecure-port=8080"
     - "--secure-port=0"
     - "--etcd-servers=http://127.0.0.1:2379"
-    - "--v=2"
+    - "--service-cluster-ip-range=10.0.0.1/24"
+    - "--service-node-port-range=1-65535"
   - name: controller-manager
     image: gcr.io/google_containers/hyperkube:v1.2.0
     imagePullPolicy: IfNotPresent
@@ -34,7 +34,6 @@ spec:
     - "/hyperkube"
     - controller-manager
     - "--master=127.0.0.1:8080"
-    - "--v=2"
   - name: scheduler
     image: gcr.io/google_containers/hyperkube:v1.2.0
     imagePullPolicy: IfNotPresent
@@ -42,7 +41,6 @@ spec:
     - "/hyperkube"
     - scheduler
     - "--master=127.0.0.1:8080"
-    - "--v=2"
   - name: kube2sky
     image: gcr.io/google_containers/kube2sky:1.14
     imagePullPolicy: IfNotPresent

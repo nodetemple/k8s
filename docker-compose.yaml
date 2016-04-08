@@ -13,7 +13,7 @@ kubelet:
     - /var/lib/kubelet/:/var/lib/kubelet:rw
     - /var/run:/var/run:rw
     - ./manifests:/etc/kubernetes/manifests:ro
-  command: /hyperkube kubelet --containerized --api-servers=http://127.0.0.1:8080 --v=2 --address=0.0.0.0 --enable-server --hostname-override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster-dns=10.0.0.10 --cluster-domain=cluster.local
+  command: /hyperkube kubelet --containerized --api-servers=http://127.0.0.1:8080 --address=0.0.0.0 --enable-server --hostname-override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster-dns=10.0.0.10 --cluster-domain=cluster.local
 proxy:
   container_name: k8s_proxy
   image: gcr.io/google_containers/hyperkube:v1.2.0

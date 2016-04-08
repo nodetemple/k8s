@@ -44,7 +44,9 @@ items:
   spec:
     selector:
       app: k8s-dashboard
+    type: NodePort
     ports:
-    - port: 9090
+    - port: 80
+      targetPort: 9090
       protocol: TCP
 EOF

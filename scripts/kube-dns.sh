@@ -30,5 +30,6 @@ items:
     clusterIP: 10.0.0.10
     ports:
     - port: 53
+      targetPort: 53
       protocol: UDP
 EOF
