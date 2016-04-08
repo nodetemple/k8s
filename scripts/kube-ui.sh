@@ -24,6 +24,7 @@ items:
           app: kubernetes-dashboard-canary
           version: canary
       spec:
+        hostNetwork: true
         containers:
         - name: kubernetes-dashboard-canary
           image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
