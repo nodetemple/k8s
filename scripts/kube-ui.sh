@@ -31,7 +31,7 @@ items:
           - containerPort: 9090
             protocol: TCP
           args:
-          - --apiserver-host=http://127.0.0.1:8080
+          - "--apiserver-host=http://127.0.0.1:8080"
 - kind: Service
   apiVersion: v1
   metadata:
@@ -46,7 +46,8 @@ items:
       app: k8s-dashboard
     type: NodePort
     ports:
-    - port: 80
+    - nodePort: 9090
+      port: 9090
       targetPort: 9090
       protocol: TCP
 EOF
