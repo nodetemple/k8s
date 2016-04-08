@@ -21,7 +21,7 @@ items:
         labels:
           app: k8s-dashboard
       spec:
-        hostNetwork: true
+        hostNetwork: false
         restartPolicy: Always
         containers:
         - name: k8s-dashboard
