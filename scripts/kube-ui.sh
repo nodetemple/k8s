@@ -17,10 +17,10 @@ items:
   spec:
     selector:
       app: k8s-api
-    #type: NodePort
+    type: NodePort
     ports:
-    #- nodePort: 9090
-    - port: 9090
+    - nodePort: 9090
+      port: 9090
       targetPort: 9090
       protocol: TCP
 EOF
