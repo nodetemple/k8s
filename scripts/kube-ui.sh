@@ -53,17 +53,17 @@ items:
 - kind: Service
   apiVersion: v1
   metadata:
-  name: api
-  namespace: default
-  labels:
-    app: k8s-api
-    kubernetes.io/name: Kube-API
-    kubernetes.io/cluster-service: "true"
+    name: api
+    namespace: default
+    labels:
+      app: k8s-api
+      kubernetes.io/name: Kube-API
+      kubernetes.io/cluster-service: "true"
   spec:
-  selector:
-    app: k8s-api
-  ports:
-  - port: 9091
-    targetPort: 8080
-    protocol: TCP
+    selector:
+      app: k8s-api
+    ports:
+    - port: 9091
+      targetPort: 8080
+      protocol: TCP
 EOF
