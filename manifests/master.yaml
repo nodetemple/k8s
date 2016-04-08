@@ -6,7 +6,7 @@ metadata:
   labels:
     app: k8s-api
 spec:
-  hostNetwork: false
+  hostNetwork: true
   restartPolicy: Always
   containers:
   - name: etcd
