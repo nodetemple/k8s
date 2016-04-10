@@ -1,6 +1,6 @@
 kubelet:
   container_name: k8s_kubelet
-  image: gcr.io/google_containers/hyperkube:v1.2.0
+  image: gcr.io/google_containers/hyperkube:v1.2.2
   net: host
   pid: host
   privileged: true
@@ -16,7 +16,7 @@ kubelet:
   command: /hyperkube kubelet --containerized --api-servers=http://127.0.0.1:8080 --address=127.0.0.1 --enable-server --hostname-override=127.0.0.1 --config=/etc/kubernetes/manifests --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --read-only-port=0 --cadvisor-port=0
 proxy:
   container_name: k8s_proxy
-  image: gcr.io/google_containers/hyperkube:v1.2.0
+  image: gcr.io/google_containers/hyperkube:v1.2.2
   net: host
   pid: host
   privileged: true
