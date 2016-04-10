@@ -53,12 +53,13 @@ spec:
     - "--kube-master-url=http://127.0.0.1:8080"
     - "--etcd-server=http://127.0.0.1:2379"
     - "--domain=cluster.local"
+    - "--healthz-port=0"
   - name: skydns
     image: skynetservices/skydns:2.5.3a
     imagePullPolicy: IfNotPresent
     args:
     - "--machines=http://127.0.0.1:2379"
-    - "--addr=0.0.0.0:53"
+    - "--addr=127.0.0.1:53"
     - "--domain=cluster.local."
     - "--ns-rotate=false"
     - "--nameservers=8.8.8.8:53,8.8.4.4:53"
