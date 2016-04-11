@@ -22,9 +22,8 @@ fi
 
 echo "- Configuring kubectl..."
 kubectl config set-cluster k8s --server=http://127.0.0.1:8080
-kubectl config set-credentials k8s --username=k8s --password=nodetemple
-kubectl config set-context k8s --cluster=k8s --user=k8s
-kubectl config use-context k8s --cluster=k8s
+kubectl config set-context k8s --cluster=k8s
+kubectl config use-context k8s
 
 echo "- Enabling Docker engine..."
 sudo systemctl enable docker.service
