@@ -36,7 +36,7 @@ spec:
     command:
     - "/hyperkube"
     - controller-manager
-    #- "--address=127.0.0.1"
+    - "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
   - name: k8s-scheduler
     image: gcr.io/google_containers/hyperkube:v1.2.2
@@ -44,7 +44,7 @@ spec:
     command:
     - "/hyperkube"
     - scheduler
-    #- "--address=127.0.0.1"
+    - "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
   - name: k8s-proxy
     image: gcr.io/google_containers/hyperkube:v1.2.2
