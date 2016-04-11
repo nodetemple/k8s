@@ -49,7 +49,6 @@ until kubectl cluster-info &>/dev/null; do
 done
 
 cd scripts
-./kube-namespace.sh
 ./kube-dns.sh
 ./kube-ui.sh
 
