@@ -31,6 +31,7 @@ spec:
     - "--service-cluster-ip-range=10.0.0.1/24"
     - "--service-node-port-range=1-65535"
     - "--master-service-namespace=kube-system"
+    - "--basic-auth-file=/srv/kubernetes/basic_auth.csv"
   - name: controller-manager
     image: gcr.io/google_containers/hyperkube:v1.2.2
     imagePullPolicy: IfNotPresent
