@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: k8s-master
+  name: k8s-dns
   namespace: kube-system
   labels:
     app: k8s-dns
