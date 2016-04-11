@@ -26,8 +26,6 @@ kubectl config set-context k8s --cluster=k8s
 kubectl config use-context k8s
 
 echo "- Configuring flannel..."
-sudo systemctl stop docker.service
-
     TEMPLATE=/etc/flannel/options.env
     sudo rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
@@ -62,7 +60,12 @@ After=flanneld.service
 EOF"
     }
 
+sudo systemctl stop flanned.service
+sudo systemctl enable flanned.service
+sudo systemctl start flanned.service
+
 echo "- Enabling Docker engine..."
+sudo systemctl stop docker.service
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
 
