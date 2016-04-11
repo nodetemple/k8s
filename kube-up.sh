@@ -32,8 +32,8 @@ echo "- Configuring flannel..."
         echo "TEMPLATE: $TEMPLATE"
         sudo mkdir -p $(dirname $TEMPLATE)
         sudo bash -c "cat << EOF > $TEMPLATE
-FLANNELD_IFACE=$ADVERTISE_IP
-FLANNELD_ETCD_ENDPOINTS=$ETCD_ENDPOINTS
+FLANNELD_IFACE=$PUBLIC_IP
+FLANNELD_ETCD_ENDPOINTS=http://127.0.0.1:2379
 EOF"
     }
 
@@ -60,11 +60,12 @@ After=flanneld.service
 EOF"
     }
 
-sudo systemctl stop flanned.service
-sudo systemctl enable flanned.service
-sudo systemctl start flanned.service
+sudo systemctl daemon-reload
 
-echo "- Enabling Docker engine..."
+sudo systemctl stop flanneld.service
+sudo systemctl enable flanneld.service
+sudo systemctl start flanneld.service
+
 sudo systemctl stop docker.service
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
