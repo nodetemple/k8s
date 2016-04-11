@@ -66,8 +66,5 @@ spec:
   - name: dashboard
     image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
     imagePullPolicy: Always
-    ports:
-    - containerPort: 9090
-      protocol: TCP
     args:
     - "--apiserver-host=http://127.0.0.1:8080"
