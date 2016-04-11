@@ -59,6 +59,6 @@ until kubectl cluster-info &>/dev/null; do
   sleep 1
 done
 
-#kubectl create -f addons
+kubectl create -f addons
 
 echo "Kubernetes stack is up."
