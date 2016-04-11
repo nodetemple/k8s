@@ -28,7 +28,7 @@ kubectl config use-context k8s
 echo "- Configuring flannel..."
 sudo systemctl stop docker.service
 
-    local TEMPLATE=/etc/flannel/options.env
+    TEMPLATE=/etc/flannel/options.env
     rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
@@ -39,7 +39,7 @@ FLANNELD_ETCD_ENDPOINTS=$ETCD_ENDPOINTS
 EOF
     }
 
-    local TEMPLATE=/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
+    TEMPLATE=/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
     rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
@@ -50,7 +50,7 @@ ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
 EOF
     }
 
-    local TEMPLATE=/etc/systemd/system/docker.service.d/40-flannel.conf
+    TEMPLATE=/etc/systemd/system/docker.service.d/40-flannel.conf
     rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
