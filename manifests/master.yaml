@@ -54,7 +54,6 @@ spec:
     - "--kube-master-url=http://127.0.0.1:8080"
     - "--etcd-server=http://127.0.0.1:2379"
     - "--domain=cluster.local"
-    - "--healthz-port=0"
   - name: skydns
     image: skynetservices/skydns:2.5.3a
     imagePullPolicy: IfNotPresent
