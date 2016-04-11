@@ -46,8 +46,7 @@ docker run -d --name=k8s_kubelet --net=host --pid=host --privileged \
   --volume=/var/lib/docker/:/var/lib/docker:rw \
   --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
   --volume=/var/run:/var/run:rw \
-  --volume=${PWD}/manifests/etc:/etc/kubernetes/manifests:ro \
-  --volume=${PWD}/manifests/srv:/srv/kubernetes/manifests:ro \
+  --volume=${PWD}/manifests:/etc/kubernetes/manifests:ro \
   gcr.io/google_containers/hyperkube:v${K8S_VERSION} \
   /hyperkube kubelet \
     --containerized --enable-server --allow-privileged --config=/etc/kubernetes/manifests \
