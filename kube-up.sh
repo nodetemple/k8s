@@ -5,7 +5,6 @@ export SERVICE_IP_RANGE=10.0.0.0/24
 export K8S_SERVICE_IP=10.0.0.1
 export DNS_SERVICE_IP=10.0.0.10
 export DNS_HOST=cluster.local
-export POD_NETWORK=10.1.0.0/16
 
 export PUBLIC_IP=$(awk -F= '/COREOS_PUBLIC_IPV4/ {print $2}' /etc/environment)
 
@@ -25,48 +24,7 @@ kubectl config set-cluster k8s --server=http://127.0.0.1:8080
 kubectl config set-context k8s --cluster=k8s
 kubectl config use-context k8s
 
-echo "- Configuring flannel..."
-    TEMPLATE=/etc/flannel/options.env
-    sudo rm -rf $TEMPLATE
-    [ -f $TEMPLATE ] || {
-        echo "TEMPLATE: $TEMPLATE"
-        sudo mkdir -p $(dirname $TEMPLATE)
-        sudo bash -c "cat << EOF > $TEMPLATE
-FLANNELD_IFACE=$PUBLIC_IP
-FLANNELD_ETCD_ENDPOINTS=http://127.0.0.1:2379
-EOF"
-    }
-
-    TEMPLATE=/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
-    sudo rm -rf $TEMPLATE
-    [ -f $TEMPLATE ] || {
-        echo "TEMPLATE: $TEMPLATE"
-        sudo mkdir -p $(dirname $TEMPLATE)
-        sudo bash -c "cat << EOF > $TEMPLATE
-[Service]
-ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
-EOF"
-    }
-
-    TEMPLATE=/etc/systemd/system/docker.service.d/40-flannel.conf
-    sudo rm -rf $TEMPLATE
-    [ -f $TEMPLATE ] || {
-        echo "TEMPLATE: $TEMPLATE"
-        sudo mkdir -p $(dirname $TEMPLATE)
-        sudo bash -c "cat << EOF > $TEMPLATE
-[Unit]
-Requires=flanneld.service
-After=flanneld.service
-EOF"
-    }
-
-sudo systemctl daemon-reload
-
-sudo systemctl stop flanneld.service
-sudo systemctl enable flanneld.service
-sudo systemctl start flanneld.service
-
-sudo systemctl stop docker.service
+echo "- Starting Docker Engine..."
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
 
@@ -101,8 +59,6 @@ echo "- Waiting for Kubernetes stack to become available..."
 until kubectl cluster-info &>/dev/null; do
   sleep 1
 done
-
-#curl --silent -X PUT -d "value={\"Network\":\"$POD_NETWORK\",\"Backend\":{\"Type\":\"vxlan\"}}" "$ACTIVE_ETCD/v2/keys/coreos.com/network/config?prevExist=false"
 
 #kubectl create -f addons
 
