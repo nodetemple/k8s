@@ -1,18 +1,14 @@
-#!/bin/bash
-echo "- Setting up Kube UI..."
-
-kubectl create -f - << EOF
 kind: List
 apiVersion: v1
 items:
 - kind: Service
   apiVersion: v1
   metadata:
-    name: dashboard
+    name: k8s-dashboard
     namespace: kube-system
     labels:
       app: k8s-api
-      kubernetes.io/name: Kube-UI
+      kubernetes.io/name: Kubernetes-Dashboard
       kubernetes.io/cluster-service: "true"
   spec:
     selector:
@@ -23,4 +19,3 @@ items:
     - port: 9090
       targetPort: 9090
       protocol: TCP
-EOF

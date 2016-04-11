@@ -10,7 +10,7 @@ items:
 - kind: Endpoints
   apiVersion: v1
   metadata:
-    name: kube-dns
+    name: k8s-dns
     namespace: kube-system
   subsets:
   - addresses:
@@ -21,11 +21,11 @@ items:
 - kind: Service
   apiVersion: v1
   metadata:
-    name: kube-dns
+    name: k8s-dns
     namespace: kube-system
     labels:
+      kubernetes.io/name: Kubernetes-DNS
       kubernetes.io/cluster-service: "true"
-      kubernetes.io/name: Kube-DNS
   spec:
     clusterIP: 10.0.0.10
     ports:

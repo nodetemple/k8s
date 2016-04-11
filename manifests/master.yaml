@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: k8s
+  name: k8s-master
   namespace: default
   labels:
     app: k8s-api
@@ -17,7 +17,7 @@ spec:
     - "--listen-client-urls=http://127.0.0.1:2379"
     - "--advertise-client-urls=http://127.0.0.1:2379"
     - "--data-dir=/var/etcd/data"
-  - name: apiserver
+  - name: k8s-apiserver
     image: gcr.io/google_containers/hyperkube:v1.2.2
     imagePullPolicy: IfNotPresent
     command:
@@ -30,7 +30,7 @@ spec:
     - "--etcd-servers=http://127.0.0.1:2379"
     - "--service-cluster-ip-range=10.0.0.1/24"
     - "--service-node-port-range=1-65535"
-  - name: controller-manager
+  - name: k8s-controller-manager
     image: gcr.io/google_containers/hyperkube:v1.2.2
     imagePullPolicy: IfNotPresent
     command:
@@ -38,7 +38,7 @@ spec:
     - controller-manager
     - "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
-  - name: scheduler
+  - name: k8s-scheduler
     image: gcr.io/google_containers/hyperkube:v1.2.2
     imagePullPolicy: IfNotPresent
     command:
@@ -62,7 +62,7 @@ spec:
     - "--domain=cluster.local."
     - "--ns-rotate=false"
     - "--nameservers=8.8.8.8:53,8.8.4.4:53"
-  - name: dashboard
+  - name: k8s-dashboard
     image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
     imagePullPolicy: Always
     args:
