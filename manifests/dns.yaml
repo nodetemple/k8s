@@ -22,7 +22,7 @@ spec:
     imagePullPolicy: IfNotPresent
     args:
     - "--machines=http://127.0.0.1:2379"
-    - "--addr=127.0.0.1:53"
+    - "--addr=0.0.0.0:53"
     - "--domain=cluster.local."
     - "--ns-rotate=false"
     - "--nameservers=8.8.8.8:53,8.8.4.4:53"
