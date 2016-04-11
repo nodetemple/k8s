@@ -9,7 +9,7 @@ items:
   apiVersion: v1
   metadata:
     name: dashboard
-    namespace: default
+    namespace: kube-system
     labels:
       app: k8s-api
       kubernetes.io/name: Kube-UI

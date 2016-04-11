@@ -2,7 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: busybox
-  namespace: default
+  namespace: kube-system
 spec:
   hostNetwork: false
   restartPolicy: Always
