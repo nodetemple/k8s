@@ -47,7 +47,6 @@ until kubectl cluster-info &>/dev/null; do
   sleep 1
 done
 
-./scripts/kube-dns.sh
 kubectl create -f addons
 
 echo "Kubernetes stack is up."

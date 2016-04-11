@@ -4,18 +4,19 @@ items:
 - kind: Service
   apiVersion: v1
   metadata:
-    name: k8s-dashboard
+    name: k8s-dns
     namespace: kube-system
     labels:
-      app: k8s-api
-      kubernetes.io/name: "Kubernetes-Dashboard"
+      kubernetes.io/name: "Kubernetes-DNS"
       kubernetes.io/cluster-service: "true"
   spec:
     selector:
       app: k8s-api
-    #type: NodePort
+    clusterIP: 10.0.0.10
     ports:
-    #- nodePort: 9090
-    - port: 9090
-      targetPort: 9090
+    - port: 53
+      targetPort: 53
       protocol: TCP
+    - port: 53
+      targetPort: 53
+      protocol: UDP
