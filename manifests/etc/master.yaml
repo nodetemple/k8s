@@ -2,9 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: k8s-master
-  namespace: default
-  labels:
-    app: k8s-api
+  namespace: kube-system
 spec:
   hostNetwork: true
   restartPolicy: Always
@@ -23,6 +21,7 @@ spec:
     command:
     - "/hyperkube"
     - apiserver
+    #- "--advertise-address=${PUBLIC_IP}"
     - "--insecure-bind-address=127.0.0.1"
     - "--insecure-port=8080"
     - "--bind-address=0.0.0.0"
@@ -30,13 +29,14 @@ spec:
     - "--etcd-servers=http://127.0.0.1:2379"
     - "--service-cluster-ip-range=10.0.0.0/24"
     - "--service-node-port-range=1-65535"
+    - "--allow-privileged=true"
   - name: k8s-controller-manager
     image: gcr.io/google_containers/hyperkube:v1.2.2
     imagePullPolicy: IfNotPresent
     command:
     - "/hyperkube"
     - controller-manager
-    - "--address=127.0.0.1"
+    #- "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
   - name: k8s-scheduler
     image: gcr.io/google_containers/hyperkube:v1.2.2
@@ -44,8 +44,18 @@ spec:
     command:
     - "/hyperkube"
     - scheduler
-    - "--address=127.0.0.1"
+    #- "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
+  - name: k8s-proxy
+    image: gcr.io/google_containers/hyperkube:v1.2.2
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      privileged: true
+    command:
+    - "/hyperkube"
+    - proxy
+    - "--master=http://127.0.0.1:8080"
+    - "--proxy-mode=iptables"
   - name: k8s-dashboard
     image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
     imagePullPolicy: Always
