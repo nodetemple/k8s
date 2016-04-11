@@ -33,10 +33,10 @@ sudo systemctl stop docker.service
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
         sudo mkdir -p $(dirname $TEMPLATE)
-        sudo cat << EOF > $TEMPLATE
+        sudo bash -c 'cat << EOF > $TEMPLATE
 FLANNELD_IFACE=$ADVERTISE_IP
 FLANNELD_ETCD_ENDPOINTS=$ETCD_ENDPOINTS
-EOF
+EOF'
     }
 
     TEMPLATE=/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
@@ -44,10 +44,10 @@ EOF
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
         sudo mkdir -p $(dirname $TEMPLATE)
-        sudo cat << EOF > $TEMPLATE
+        sudo bash -c 'cat << EOF > $TEMPLATE
 [Service]
 ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
-EOF
+EOF'
     }
 
     TEMPLATE=/etc/systemd/system/docker.service.d/40-flannel.conf
@@ -55,11 +55,11 @@ EOF
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
         sudo mkdir -p $(dirname $TEMPLATE)
-        sudo cat << EOF > $TEMPLATE
+        sudo bash -c 'cat << EOF > $TEMPLATE
 [Unit]
 Requires=flanneld.service
 After=flanneld.service
-EOF
+EOF'
     }
 
 echo "- Enabling Docker engine..."
