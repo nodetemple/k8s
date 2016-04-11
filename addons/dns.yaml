@@ -11,12 +11,14 @@ items:
       kubernetes.io/cluster-service: "true"
   spec:
     selector:
-      app: k8s-api
+      app: k8s-dns
     clusterIP: 10.0.0.10
     ports:
-    - port: 53
-      targetPort: 53
-      protocol: TCP
-    - port: 53
+    - name: dns
+      port: 53
       targetPort: 53
       protocol: UDP
+    - name: dns-tcp
+      port: 53
+      targetPort: 53
+      protocol: TCP
