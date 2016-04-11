@@ -29,33 +29,33 @@ echo "- Configuring flannel..."
 sudo systemctl stop docker.service
 
     TEMPLATE=/etc/flannel/options.env
-    rm -rf $TEMPLATE
+    sudo rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
-        mkdir -p $(dirname $TEMPLATE)
-        cat << EOF > $TEMPLATE
+        sudo mkdir -p $(dirname $TEMPLATE)
+        sudo cat << EOF > $TEMPLATE
 FLANNELD_IFACE=$ADVERTISE_IP
 FLANNELD_ETCD_ENDPOINTS=$ETCD_ENDPOINTS
 EOF
     }
 
     TEMPLATE=/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf
-    rm -rf $TEMPLATE
+    sudo rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
-        mkdir -p $(dirname $TEMPLATE)
-        cat << EOF > $TEMPLATE
+        sudo mkdir -p $(dirname $TEMPLATE)
+        sudo cat << EOF > $TEMPLATE
 [Service]
 ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
 EOF
     }
 
     TEMPLATE=/etc/systemd/system/docker.service.d/40-flannel.conf
-    rm -rf $TEMPLATE
+    sudo rm -rf $TEMPLATE
     [ -f $TEMPLATE ] || {
         echo "TEMPLATE: $TEMPLATE"
-        mkdir -p $(dirname $TEMPLATE)
-        cat << EOF > $TEMPLATE
+        sudo mkdir -p $(dirname $TEMPLATE)
+        sudo cat << EOF > $TEMPLATE
 [Unit]
 Requires=flanneld.service
 After=flanneld.service
