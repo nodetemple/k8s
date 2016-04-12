@@ -5,6 +5,7 @@ metadata:
   namespace: default
 spec:
   hostNetwork: false
+  hostPID: true
   restartPolicy: Always
   containers:
   - name: etcd
@@ -53,7 +54,6 @@ spec:
     - "/hyperkube"
     - proxy
     - "--master=http://127.0.0.1:8080"
-    - "--proxy-mode=iptables"
   - name: k8s-dashboard
     image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
     imagePullPolicy: Always
