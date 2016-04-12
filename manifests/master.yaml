@@ -4,7 +4,7 @@ metadata:
   name: k8s-master
   namespace: default
 spec:
-  hostNetwork: true
+  hostNetwork: false
   restartPolicy: Always
   containers:
   - name: etcd
@@ -22,7 +22,7 @@ spec:
     - "/hyperkube"
     - apiserver
     #- "--advertise-address=${PUBLIC_IP}"
-    - "--insecure-bind-address=127.0.0.1"
+    - "--insecure-bind-address=0.0.0.0"
     - "--insecure-port=8080"
     - "--bind-address=0.0.0.0"
     - "--secure-port=0"
