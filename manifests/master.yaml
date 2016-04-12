@@ -21,10 +21,8 @@ spec:
     command:
     - "/hyperkube"
     - apiserver
-    #- "--advertise-address=${PUBLIC_IP}"
     - "--insecure-bind-address=0.0.0.0"
     - "--insecure-port=8080"
-    - "--bind-address=0.0.0.0"
     - "--secure-port=0"
     - "--etcd-servers=http://127.0.0.1:2379"
     - "--service-cluster-ip-range=10.0.0.0/24"
