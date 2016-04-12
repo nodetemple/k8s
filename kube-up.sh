@@ -49,10 +49,15 @@ docker run -d --name=k8s_kubelet --net=host --pid=host --privileged \
   --volume=${PWD}/manifests:/etc/kubernetes/manifests:ro \
   gcr.io/google_containers/hyperkube:v${K8S_VERSION} \
   /hyperkube kubelet \
-    --containerized --enable-server --register-node --allow-privileged --config=/etc/kubernetes/manifests \
-    --address=127.0.0.1 --hostname-override=${PUBLIC_IP} \
+    --containerized --enable-server --allow-privileged --config=/etc/kubernetes/manifests \
+    --address=127.0.0.1 --hostname-override=${PUBLIC_IP} --api-servers=http://127.0.0.1:8080 \
     --cluster-dns=${DNS_SERVICE_IP} --cluster-domain=${DNS_HOST} \
     --read-only-port=0 --cadvisor-port=0
+
+docker run -d --name=k8s_proxy --net=host --pid=host --privileged \
+  gcr.io/google_containers/hyperkube:v${K8S_VERSION} \
+  /hyperkube proxy \
+    --master=http://127.0.0.1:8080 --resource-container=""
 
 echo "- Waiting for Kubernetes stack to become available..."
 until kubectl cluster-info &>/dev/null; do
