@@ -2,7 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: k8s-master
-  namespace: kube-system
+  namespace: default
 spec:
   hostNetwork: true
   restartPolicy: Always
