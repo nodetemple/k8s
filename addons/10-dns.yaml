@@ -16,6 +16,7 @@ spec:
         k8s-app: kube-dns
         kubernetes.io/cluster-service: "true"
     spec:
+      hostNetwork: false
       restartPolicy: Always
       dnsPolicy: Default
       containers:

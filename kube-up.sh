@@ -64,7 +64,6 @@ until kubectl cluster-info &>/dev/null; do
   sleep 1
 done
 
-# TODO: fix access
-#kubectl create -f addons
+kubectl create -f addons
 
 echo "Kubernetes stack is up."
