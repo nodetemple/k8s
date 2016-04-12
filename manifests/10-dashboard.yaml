@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: k8s-dashboard
+  namespace: default
+spec:
+  hostNetwork: false
+  restartPolicy: Always
+  containers:
+  - name: k8s-dashboard
+    image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
+    imagePullPolicy: Always
+    args:
+    - "--apiserver-host=http://127.0.0.1:8080"

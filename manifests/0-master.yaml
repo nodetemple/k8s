@@ -4,7 +4,7 @@ metadata:
   name: k8s-master
   namespace: default
 spec:
-  hostNetwork: false
+  hostNetwork: true
   restartPolicy: Always
   containers:
   - name: etcd
@@ -44,8 +44,3 @@ spec:
     - scheduler
     - "--address=127.0.0.1"
     - "--master=127.0.0.1:8080"
-  - name: k8s-dashboard
-    image: gcr.io/google_containers/kubernetes-dashboard-amd64:canary
-    imagePullPolicy: Always
-    args:
-    - "--apiserver-host=http://127.0.0.1:8080"
