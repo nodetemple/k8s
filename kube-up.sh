@@ -64,6 +64,25 @@ until kubectl cluster-info &>/dev/null; do
   sleep 1
 done
 
+export DNS_HOST=$(ifconfig docker0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+kubectl create -f - << EOF
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: kube-dns
+  namespace: kube-system
+subsets:
+- addresses:
+  - ip: ${DNS_HOST}
+  ports:
+  - name: dns
+    port: 53
+    protocol: UDP
+  - name: dns-tcp
+    port: 53
+    protocol: TCP
+EOF
+
 kubectl create -f addons
 
 echo "Kubernetes stack is up."
