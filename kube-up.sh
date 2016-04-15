@@ -66,8 +66,8 @@ done
 
 export DNS_HOST=$(ifconfig docker0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
 kubectl create -f - << EOF
-apiVersion: v1
 kind: Endpoints
+apiVersion: v1
 metadata:
   name: kube-dns
   namespace: kube-system
